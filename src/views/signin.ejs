@@ -1,0 +1,15 @@
+<%- layout('layout') %>
+
+<div class="container-signin">
+    <h3 class="title-form">INICIO DE SESION</h3>
+    <div class="container-form">
+        <% if (signinMessage) {%>
+            <h3><%= signinMessage %></h3>
+        <% }%>
+        <form class="form" action="/signin/user" method="POST">
+            <input class="input-form" type="text" name="Cellphone" placeholder="Celular"/>
+            <input class="input-form" type="password" name="Password" placeholder="Password"/>
+            <button class="form-buttom">Enviar</button>
+        </form>
+    </div>
+</div>

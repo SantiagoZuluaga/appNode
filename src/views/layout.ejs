@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Node app</title>    
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Allerta|Roboto" rel="stylesheet">
+</head>
+<body>      
+    <nav class="menu-nav">
+        <div class="logo">
+            <a class="text-logo" href="/">CRUD</a>
+        </div>
+        <div>
+            <ul class="nav-ul">
+                <li class="nav-li">
+                    <a class="text-nav" href="/">Inicio</a>
+                </li>
+                <% if (isLogged){ %>
+    
+                    <li class="nav-li">
+                            <a class="text-nav" href="/profile">Perfil</a>
+                        </li>
+                    <li class="nav-li">
+                        <a class="text-nav" href="/logout">Cerar sesion</a>
+                    </li>
+                <% } else { %>
+    
+                    <li class="nav-li">
+                        <a class="text-nav" href="/signup">Registrate</a>
+                    </li>
+                    <li class="nav-li">
+                        <a class="text-nav" href="/signin">Iniciar sesion</a>
+                    </li>
+                <% } %>
+                
+            </ul>
+        </div>        
+    </nav>
+    <%- body %>
+</body>
+</html>
