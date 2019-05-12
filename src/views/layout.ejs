@@ -11,7 +11,7 @@
 <body>      
     <nav class="menu-nav">
         <div class="logo">
-            <a class="text-logo" href="/">CRUD</a>
+            <a class="text-logo" href="/">CRUD NODE</a>
         </div>
         <div>
             <ul class="nav-ul">
@@ -21,10 +21,13 @@
                 <% if (isLogged){ %>
     
                     <li class="nav-li">
-                            <a class="text-nav" href="/profile">Perfil</a>
+                        <a class="text-nav" href="/profile">Perfil</a>
+                    </li>
+                    <li class="nav-li">
+                            <a class="text-nav" href="/tasks">Tareas</a>
                         </li>
                     <li class="nav-li">
-                        <a class="text-nav" href="/logout">Cerar sesion</a>
+                        <a class="text-nav" href="/logout">Cerar sesión</a>
                     </li>
                 <% } else { %>
     
@@ -32,7 +35,7 @@
                         <a class="text-nav" href="/signup">Registrate</a>
                     </li>
                     <li class="nav-li">
-                        <a class="text-nav" href="/signin">Iniciar sesion</a>
+                        <a class="text-nav" href="/signin">Iniciar sesión</a>
                     </li>
                 <% } %>
                 

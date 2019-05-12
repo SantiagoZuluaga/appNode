@@ -1,0 +1,16 @@
+<%- layout('layout') %>
+
+<div class="container-form-tasks">
+    <h3 class="title-form">Editando tarea</h3>
+    <div class="container-form">
+        <% if (edittasksmessage) { %>
+            <h3 class="error-message"><%= edittasksmessage %></h3>   
+        <% }%>
+        <form class="form" action="/edit-tasks/task/<%= idtask %>" method="POST">
+            <input class="input-form" type="text" value="<%= Nametasks %>" name="Nametasks" placeholder="Nombre de la tarea"> 
+            <textarea class="input-form textarea-description" cols="30" rows="10" maxlength="250" type="text" name="Description" placeholder="Descripcion"><%= Description %></textarea>
+            <button  class="form-buttom">Enviar</button>
+        </form>
+    </div>    
+</div>
+

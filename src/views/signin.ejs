@@ -1,10 +1,10 @@
 <%- layout('layout') %>
 
 <div class="container-signin">
-    <h3 class="title-form">INICIO DE SESION</h3>
+    <h3 class="title-form">INICIO DE SESIÓN</h3>
     <div class="container-form">
         <% if (signinMessage) {%>
-            <h3><%= signinMessage %></h3>
+            <h3 class="error-message"><%= signinMessage %></h3>
         <% }%>
         <form class="form" action="/signin/user" method="POST">
             <input class="input-form" type="text" name="Cellphone" placeholder="Celular"/>

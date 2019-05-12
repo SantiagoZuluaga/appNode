@@ -1,0 +1,40 @@
+<%- layout('layout') %>
+
+<div class="container-tasks">
+    <a class="button-newtasks" href="/new-tasks">Nueva tarea</a>
+    <table class="table-tasks">
+        <thead>
+            <tr>
+                <th class="title-tasks id">ID</th>
+                <th class="title-tasks date">FECHA</th>
+                <th class="title-tasks title">TITULO</th>
+                <th class="title-tasks description">DESCRIPCION</th>
+                <th class="title-tasks options">OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (Tasks) {%>
+                <% for(var i=0; i < Tasks.length; i++) { %>
+
+                    <tr>
+                        <td class="info-tasks id"><%= Tasks[i].id %></td>
+                        <td class="info-tasks date"><%= Tasks[i].fecha %></td>
+                        <td class="info-tasks title"><%= Tasks[i].titulo %></td>
+                        <td class="info-tasks description"><%= Tasks[i].descripcion %></td>
+                        <td class="info-tasks options">
+                            <div>
+                                <form action="/edit-tasks/<%= Tasks[i].id %>" method="POST">
+                                    <button class="options-tasks">Editar</button>
+                                </form>
+                                <form action="/delete-tasks/<%= Tasks[i].id %>" method="POST">
+                                    <button class="options-tasks">Eliminar</button>           
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+    
+                <%} %>
+            <% } %>
+        </tbody>
+    </table>
+</div>

@@ -4,14 +4,14 @@
     <h3 class="title-form">REGISTRO DE USUARIOS</h3>
     <div class="container-form">
         <% if (signupMessage) {%>
-            <h3><%= signupMessage %></h3>
+            <h3 class="error-message"><%= signupMessage %></h3>
         <% }%>
         <form class="form" action="/signup/user" method="POST">
             <input class="input-form" type="text" name="Name" placeholder="Nombre"/>
             <input class="input-form" type="text" name="Lastname" placeholder="Apellidos"/>
             <input class="input-form" type="text" name="Cellphone" placeholder="Celular"/>
             <input class="input-form" type="password" name="Password" placeholder="Password"/>
-            <input class="input-form" type="password" name="Repitpassword" placeholder="Password"/>
+            <input class="input-form" type="password" name="Repitpassword" placeholder="Repit Password"/>
             <button class="form-buttom">Enviar</button>
         </form>
     </div>

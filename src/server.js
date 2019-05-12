@@ -34,7 +34,7 @@ const verificarRegistro = (Name, Lastname, Cellphone, Password, Repitpassword) =
 
         flag = 1;
     }
-    if(Cellphone === "" || isNaN(Cellphone)){
+    if(Cellphone === "" || isNaN(Cellphone) || toString(Cellphone).length > 10){
 
         flag = 1;
     }
@@ -62,6 +62,59 @@ const verificarInicio = (Cellphone, Password) => {
 
     return flag;
     
+}
+
+const verificartask = (Nametasks, Description) => {
+
+    var flag = 0;
+
+    if(Nametasks === ""){
+        
+        flag = 1;
+    }
+    if(Description === ""){
+
+        flag = 1;
+    }
+
+    return flag;
+}
+
+
+const verificarActualizar = (Name, Lastname, Cellphone) => {
+
+    var flag = 0;
+
+    if(Name === ""){
+
+        flag = 1;
+    }
+    if(Lastname === ""){
+
+        flag = 1;
+    }
+    if(Cellphone === ""){
+
+        flag = 1;
+    }
+
+    return flag;
+}
+
+const verificarPassword = (OldPassword, NewPassword, RepitPassword) => {
+
+    var flag = 0;
+
+    if(OldPassword === ""){
+
+        flag = 1;
+    }
+    if(NewPassword === "" || RepitPassword === "" || NewPassword !== RepitPassword){
+
+        flag = 1;
+    }
+
+    return flag;
 }
 
 //ROUTES
@@ -140,6 +193,8 @@ app.get('/profile', (req, res) => {
     if(req.session.isLogged){
 
         res.render('profile', {
+            editinfomessage: req.flash('editinfomessage'),
+            editpassmessage: req.flash('editpassmessage'),
             isLogged: req.session.isLogged,
             Name: req.session.Name,
             Lastname: req.session.Lastname,
@@ -149,7 +204,6 @@ app.get('/profile', (req, res) => {
         
         res.redirect('/');  
     }
-    
     
 })
 
@@ -163,7 +217,152 @@ app.get('/logout', (req, res) => {
   
 })
 
+
+//Tasks 
+app.get('/tasks', (req, res) => {
+
+    var Cellphone = req.session.Cellphone;
+
+    if(req.session.isLogged){
+
+       db.obtenerTareas(Cellphone, req, res);
+    }
+    else {
+        
+        res.redirect('/');  
+    }
+})
+
+app.get('/new-tasks', (req, res) => {
+
+    if(req.session.isLogged){
+
+        res.render('new-tasks', {
+            isLogged: req.session.isLogged,
+            newtasksmessage: req.flash('newtasksmessage')
+        });
+    }
+    else {
+        
+        res.redirect('/');  
+    }
+})
+
+app.post('/new-tasks', (req, res) => {
+
+    var Cellphone = req.session.Cellphone;
+    var Fecha = new Date();
+    const { Nametasks, Description } = req.body;
+
+    if(verificartask(Nametasks, Description) === 0){
+
+        Fecha = Fecha.getDate() + "/"+ (Fecha.getMonth() + 1) + "/" + Fecha.getFullYear();
+        db.agregarTarea(Nametasks, Description, Fecha, Cellphone, req, res);
+    }
+    else {
+
+        req.flash('newtasksmessage', 'Datos invalidos')
+        res.redirect('/new-tasks');
+    }
+
+})
+
+app.post('/edit-tasks/task/:id' , (req, res) => {
+
+    var id = req.params.id;
+    var Cellphone = req.session.Cellphone;
+    var Fecha = new Date();
+    const { Nametasks, Description } = req.body;
+
+    if(verificartask(Nametasks, Description) === 0){
+
+        Fecha = Fecha.getDate() + "/"+ (Fecha.getMonth() + 1) + "/" + Fecha.getFullYear();
+        db.actualizarTarea(Nametasks, Description, Fecha, id, Cellphone, req, res);
+    }
+    else {
+
+        req.flash('edittasksmessage', 'Datos invalidos')
+        res.render('edit-tasks', {
+            isLogged: req.session.isLogged,
+            edittasksmessage: req.flash('edittasksmessage'),
+            Nametasks: Nametasks,
+            Description: Description});
+    }
+
+})
+
+app.post('/edit-tasks/:id', (req, res) => {
+
+    var id = req.params.id;
+    var Cellphone = req.session.Cellphone;
+
+    if(req.session.isLogged){
+
+        db.datosTarea(Cellphone, id, req, res);
+    }
+    else {
+        
+        res.redirect('/');  
+    }
+})
+
+app.post('/delete-tasks/:id', (req, res) => {
+
+    var id = req.params.id;
+    var Cellphone = req.session.Cellphone;
+
+    if(req.session.isLogged){
+
+        db.eliminarTarea(Cellphone, id, req, res);
+    }
+    else {
+        
+        res.redirect('/');  
+    }
+})
+
+app.get('/*', (req, res) => {
+
+    res.send("Esta pagina no existe")
+})
+
+app.post('/profile/edit', (req, res) => {
+
+    const { Name, Lastname, Cellphone } = req.body;
+
+    if(verificarActualizar(Name, Lastname, Cellphone) === 0){
+
+        db.actualizarInformacion(Name, Lastname, Cellphone, req, res);
+    }
+    else {
+
+        req.flash('editinfomessage', 'Datos invalidos');
+        res.redirect('/profile');
+    }
+
+})
+
+app.post('/password/edit', (req, res) => {
+
+    const { OldPassword, NewPassword, RepitPassword } = req.body;
+    var Cellphone = req.session.Cellphone;
+
+    if(verificarPassword(OldPassword, NewPassword, RepitPassword) === 0){
+
+        db.actualizarPassword(OldPassword, NewPassword, Cellphone, req, res);
+
+    }
+    else {
+
+        req.flash('editpassmessage', 'Datos invalidos');
+        res.redirect('/profile');
+    }
+
+    
+})
+
 //STARTING SERVER
 app.listen(app.get('port'), () => {
     console.log('SERVER ON PORT ' + app.get('port'));
 })
+
