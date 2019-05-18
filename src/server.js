@@ -34,7 +34,7 @@ const verificarRegistro = (Name, Lastname, Cellphone, Password, Repitpassword) =
 
         flag = 1;
     }
-    if(Cellphone === "" || isNaN(Cellphone) || toString(Cellphone).length > 10){
+    if(Cellphone === "" || isNaN(Cellphone)){
 
         flag = 1;
     }
