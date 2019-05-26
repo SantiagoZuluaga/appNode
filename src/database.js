@@ -20,7 +20,7 @@ const insertarusuario = (Name, Lastname, Cellphone, Password, req, res) => {
 
         if (resultado.rows.length === 0){
 
-            pool.query('INSERT INTO usuarios VALUES($1, $2, $3, $4)', [Cellphone, Name, Lastname, Encriptado] , (error, results) => {
+            pool.query('INSERT INTO usuarios VALUES($1, $2, $3, $4)', [Name, Cellphone, Lastname, Encriptado] , (error, results) => {
     
                 if(error){
                     console.log(error)
