@@ -1,7 +1,7 @@
 const {Pool}= require('pg')
 const bcrypt = require('bcrypt-nodejs');
 //DB CONNECT STRING
-const connect = 'postgresql://santiago:santiago1998@localhost:5432/pruebas';
+const connect = 'postgresql://postgres:santiago1998@localhost:5432/pruebas';
 
 const pool = new Pool({
     connectionString: connect
@@ -20,7 +20,7 @@ const insertarusuario = (Name, Lastname, Cellphone, Password, req, res) => {
 
         if (resultado.rows.length === 0){
 
-            pool.query('INSERT INTO usuarios VALUES($1, $2, $3, $4)', [Name, Lastname, Cellphone, Encriptado] , (error, results) => {
+            pool.query('INSERT INTO usuarios VALUES($1, $2, $3, $4)', [Cellphone, Name, Lastname, Encriptado] , (error, results) => {
     
                 if(error){
                     console.log(error)
@@ -45,6 +45,7 @@ const insertarusuario = (Name, Lastname, Cellphone, Password, req, res) => {
 }
 
 const validarusuario = (Cellphone, Password, req, res) => {
+    
 
     pool.query('SELECT * FROM usuarios WHERE celular = $1', [Cellphone], (error, results) => {
 
