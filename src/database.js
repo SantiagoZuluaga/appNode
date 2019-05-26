@@ -1,7 +1,7 @@
 const {Pool}= require('pg')
 const bcrypt = require('bcrypt-nodejs');
 //DB CONNECT STRING
-const connect = 'postgresql://postgres:santiago1998@localhost:5432/pruebas';
+const connect = 'postgresql://postgres:santiago1998@127.0.0.1:5432/pruebas';
 
 const pool = new Pool({
     connectionString: connect
